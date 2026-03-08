@@ -29,6 +29,9 @@ spec:
       - name: cloudflared
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 2000
         command:
           - cloudflared
           - tunnel
