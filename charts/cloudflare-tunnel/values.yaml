@@ -48,6 +48,21 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
+metricsService:
+  annotations: {}
+  labels: {}
+
+serviceMonitor:
+  enabled: false
+  # Additional labels to add to the ServiceMonitor (e.g. to match a Prometheus instance selector)
+  labels: {}
+  annotations: {}
+  # Namespace to create the ServiceMonitor in; defaults to the release namespace
+  namespace: ""
+  interval: 30s
+  scrapeTimeout: 10s
+  path: /metrics
+
 # Security items common to everything in the pod.  Here we require that it
 # does not run as the user defined in the image, literally named "nonroot".
 podSecurityContext:
