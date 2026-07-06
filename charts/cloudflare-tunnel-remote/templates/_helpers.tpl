@@ -51,6 +51,26 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Name of the Secret holding the tunnel token.
+Uses the existing Secret when cloudflare.existingSecret is set, otherwise the
+Secret created by this chart.
+*/}}
+{{- define "cloudflare-tunnel-remote.secretName" -}}
+{{- if .Values.cloudflare.existingSecret }}
+{{- .Values.cloudflare.existingSecret }}
+{{- else }}
+{{- include "cloudflare-tunnel-remote.fullname" . }}
+{{- end }}
+{{- end }}
+
+{{/*
+Key within the Secret that holds the tunnel token.
+*/}}
+{{- define "cloudflare-tunnel-remote.secretKey" -}}
+{{- default "tunnelToken" .Values.cloudflare.existingSecretKey }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "cloudflare-tunnel-remote.serviceAccountName" -}}

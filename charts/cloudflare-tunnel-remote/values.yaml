@@ -1,8 +1,15 @@
-# Default values for cloudflare-tunnel.
+# Default values for cloudflare-tunnel-remote.
 
 # Cloudflare parameters.
 cloudflare:
+  # The token for the remotely-managed tunnel. Required unless existingSecret is set.
+  # Ignored when existingSecret is set.
   tunnel_token: ""
+  # If set, no Secret is created by this chart; the named, pre-existing Secret is
+  # used instead (e.g. one managed by External Secrets, Sealed Secrets, or SOPS).
+  existingSecret: ""
+  # Key within the Secret (whether chart-created or existing) that holds the token.
+  existingSecretKey: tunnelToken
 
 image:
   repository: cloudflare/cloudflared
